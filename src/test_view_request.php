@@ -1,5 +1,5 @@
 <?php
-    echo "Tipo di richiesta" . $_SERVER['REQUST_METHOD'] . "<br>";
+    echo "Tipo di richiesta" . $_SERVER['REQUEST_METHOD'] . "<br>";
 
     echo "<br>";
 
