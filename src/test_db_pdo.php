@@ -4,15 +4,14 @@ $host = 'db';
 $dbname = 'root_db';
 $user = 'user';
 $password = 'user';
-$port = 3306;
 
-$connection = new mysqli($host, $user, $password, $dbname);
+try{
+    $dsn = "mysql:host=$host;dbname=$dbname;charset=utf8mb4";
+    $pdo = new PDO($dsn, $user, $password);
 
-if ($connection->connect_error) {
-    die("Connection failed: " . $connection->connect_error);
+    $pdo ->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    echo "Connessione al database avvenuta con PDO!";
+}catch(PDOException $e){
+    echo "Connessione al database fallita: ".$e->getMessage();
 }
-
-echo "Connected to MySQL database successfully!";
-$connection->close();
-
-?>
