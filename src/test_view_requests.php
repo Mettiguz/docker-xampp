@@ -11,4 +11,11 @@
     print_r ($_SERVER);
     echo "<br><br>";  
 
+    echo "contenuto della richiesta:<br>";
+    if($_SERVER['REQUEST_METHOD']=== 'GET')
+    {
+
+    }
+
+
 ?>
