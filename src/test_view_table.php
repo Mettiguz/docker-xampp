@@ -9,6 +9,7 @@ if($connection->num_rows>0)
 {
     echo "<table>";
 
+    //fetch = prendi
     while($column = $result->fetch_field())
     {
         //var_dump($column);
