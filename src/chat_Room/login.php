@@ -17,6 +17,11 @@
     $query = "SELECT * FROM $table";
     $result = $connection->query($query);
 
+    if($_GET != null)
+    {
+        
+    }
+
     if ($result && $result->num_rows > 0) {
         echo "<table>";
 

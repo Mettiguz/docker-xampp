@@ -1,0 +1,45 @@
+<?php
+-$dbhost = 'localhost';
+-$dbuser = 'root';
+-$dbpass = 'root';
+-$conn = mysqli_connect($dbhost, $dbuser, $dbpass);
+-if(! $conn )
+-{
+-  die('Could not connect: ' . mysqli_error());
+-}
+-echo 'Connected successfully<br>';
+-$sql = "SELECT * FROM test.user";
+-$result = mysqli_query($conn, $sql);
+-while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
+-  echo "{$row['username']} - {$row['password']} <br>";
+-}
+-if (isset($_POST["username"]) && isset($_POST["password"])) {
+-  echo $_POST["username"]." ".$_POST["password"];
+-}
+-mysqli_close($conn);
++
++if (isset($_POST["username"]) && isset($_POST["password"])) {
++    $dbhost = 'db';
++    $dbuser = 'root';
++    $dbpass = 'root';
++    $conn = mysqli_connect($dbhost, $dbuser, $dbpass);
++    if (!$conn) {
++        die('Could not connect: ' . mysqli_error());
++    }
++
++    $username = $_POST["username"];
++    $password = $_POST["password"];
++
++    $sql = "SELECT * FROM test.user WHERE username = '$username' AND password = '$password'";
++    $result = mysqli_query($conn, $sql);
++
++    if (mysqli_num_rows($result) > 0) {
++        // Username and password are correct, redirect to chat.html
++        header("Location: chat.html");
++        exit();
++    } else {
++        echo "Username or password incorrect.";
++    }
++    mysqli_close($conn);
++}
+ ?>
