@@ -1,47 +1,26 @@
 <?php
+ob_start();
 
-    $host = 'db'; // Usa l'host corretto
-    $dbname = 'Chat_room';
-    $user = 'user'; // Cambia con il tuo utente
-    $password = 'user'; // Cambia con la tua password
-    $port = 3306; // Porta predefinita di MySQL
+require_once '../chat_Room/db.php';
 
-    // Connessione al database
-    $connection = new mysqli($host, $user, $password, $dbname, $port);
+$nome = "";
+$password = "";
 
-    if ($connection->connect_error) {
-        die("Connessione fallita!: " . $connection->connect_error);
-    }
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $nome = trim($_POST["nome"]);
+    $password = trim($_POST["password"]);
 
-    $table = "utenti";
-    $query = "SELECT * FROM $table";
+    $query = "SELECT * FROM utenti WHERE nome='$nome' AND Pw='$password'";
     $result = $connection->query($query);
 
-    if($_GET != null)
-    {
-        
-    }
-
-    if ($result && $result->num_rows > 0) {
-        echo "<table>";
-
-        // Mostra i nomi delle colonne
-        while ($column = $result->fetch_field()) {
-            echo "<th>" . $column->name . "</th>";
-        }
-
-        // Mostra i dati
-        while ($row = $result->fetch_assoc()) {
-            echo "<tr>";
-            foreach ($row as $key => $value) {
-                echo "<td>$value</td>";
-            }
-            echo "</tr>";
-        }
-
-        echo "</table>";
+    if ($result->num_rows > 0) {
+        header("Location: chat.html");
+        exit;
     } else {
-        echo "Nessun risultato trovato.";
+        header("Location: /home/user/docker-xampp/src/chat_Room/log_in.html");
+        exit;
     }
+}
 
+ob_end_flush();
 ?>
