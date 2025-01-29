@@ -70,31 +70,40 @@
 <body>
     <div class="sidebar">
         <ul class="chat-list">
-            <li class="chat-item" onclick="openChat('Chat 1')">
-                <img src="https://via.placeholder.com/40" alt="Utente">
-                <div class="chat-info">
-                    <h4>Chat 1</h4>
-                    <p>Ultimo messaggio...</p>
-                </div>
-            </li>
-            <li class="chat-item" onclick="openChat('Chat 2')">
-                <img src="https://via.placeholder.com/40" alt="Utente">
-                <div class="chat-info">
-                    <h4>Chat 2</h4>
-                    <p>Ultimo messaggio...</p>
-                </div>
-            </li>
-            <li class="chat-item" onclick="openChat('Chat 3')">
-                <img src="https://via.placeholder.com/40" alt="Utente">
-                <div class="chat-info">
-                    <h4>Chat 3</h4>
-                    <p>Ultimo messaggio...</p>
-                </div>
-            </li>
-            <!-- Puoi aggiungere altre chat qui -->
+            <?php
+            require_once '../chat_Room/db.php'; // Assicurati che il percorso sia corretto
+
+            $query = "SELECT nome_stanza FROM stanze";
+            $result = $connection->query($query);
+
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    $chatName = $row['nome_stanza'];
+                    echo '
+                    <li class="chat-item" onclick="openChat(\'' . $chatName . '\')">
+                        <img src="https://via.placeholder.com/40" alt="Utente">
+                        <div class="chat-info">
+                            <h4>' . $chatName . '</h4>
+                            <p>Ultimo messaggio...</p>
+                        </div>
+                    </li>';
+                }
+            } else 
+            {
+                echo '<li class="chat-item">Nessuna chat disponibile</li>';
+            }
+            ?>
         </ul>
     </div>
     <div class="chat-display" id="chatDisplay">
+        <?php
+            $query ="SELECT 
+
+
+
+            " 
+
+        ?>
         <h2>Seleziona una chat per iniziare</h2>
     </div>
 
@@ -102,7 +111,7 @@
         // Funzione per cambiare il contenuto della chat selezionata
         function openChat(chatName) {
             const chatDisplay = document.getElementById('chatDisplay');
-            chatDisplay.innerHTML = `<h2>Stai visualizzando ${chatName}</h2>`;
+            chatDisplay.innerHTML = <h2>Stai visualizzando ${chatName}</h2>;
         }
     </script>
 </body>
